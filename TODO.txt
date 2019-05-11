@@ -1,0 +1,37 @@
+To Do:
+
+[√]	Implement items:
+		add to battle
+		potions - healing 
+		tents/campfires - healing between battles
+		consumable attack items
+		items belong to party
+
+[ ]	Implement overworld:
+		interactions, actions between battles
+			use item, start battle, etc
+			camp (?)
+
+[ ] 	Implement shop
+		Between battles / before gauntlet choice?
+		Needs money
+
+[ ]	Write campaigns (enemy gauntlets)
+
+[ ]	Create bosses
+
+[ ]	Create more enemies
+		summonable enemies (?) (2 coprses max?)
+
+[ ]	Implement area moves (?)
+		multi-enemy attacks/heals
+		all/one
+
+[ ]	Create more character classes
+
+[ ]	Create more moves for character classes
+
+[ ] 	Weapons / armor (?)
+
+[ ] 	Implement attack/defense buffs
+
