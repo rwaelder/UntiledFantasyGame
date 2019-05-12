@@ -33,6 +33,20 @@ def get_players_target(user, targetParty):
 	print()
 	return party[target]
 
+def get_heal_target(user, targetParty):
+	party = targetParty.get_members()
+
+	print()
+	for i in range(len(party)):
+		print('[%i] %s' % (i, party[i]))
+	target = -1
+	while target not in range(len(party)):
+		stream = input('Choose target number for %s: ' % user.name).rstrip()
+		if isInt(stream):
+			target = int(stream)
+	print()
+	return party[target]
+
 def get_item_target(user, targetParty):
 	print()
 	for i in range(len(targetParty)):
@@ -66,7 +80,7 @@ def do_heal(user, targetParty):
 	heal = user.choose_heal()
 	healPower, text = heal.use_heal(user)
 	if user.is_player():
-		target = get_players_target(user, targetParty)
+		target = get_heal_target(user, targetParty)
 	else:
 		target = get_enemys_target(targetParty)
 	input('%s %s %s!' % (user.name, text, target.name))

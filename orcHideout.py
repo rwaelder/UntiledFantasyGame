@@ -4,6 +4,7 @@ from enemies import Orc, OrcShaman, OrcPeon, OrcBerserker, OrcLeader
 from item import Potion, Ether, Spear
 from random import choice
 from party import Party
+from shop import Shop
 
 def set_enemy_level(party):
 	level = party.get_level()
@@ -69,8 +70,25 @@ def play(playerParty):
 	won = battle(playerParty, enemyParty)
 
 	if not won:
-		game_over()
-		return
+		print()
+		print('Despite getting the whalloping of your lives, you')
+		input('manage to get out of there and meet a traveling salesman.')
+		shopItems = []
+		shopItems.append(Potion(2, 4))
+		shopItems.append(Ether(2, 4))
+		shopItems.append(Spear(2, 4))
+		shop = Shop(shopItems)
+		shop.use_shop(playerParty)
+		play(playerParty)
+		print('After buying items from his shop, the salesman')
+		print('sets up his camp and allows you to stay the')
+		print('night with him. Refreshed, you head back to the')
+		input('orc hideout the following morning.')
+		playerParty.heal_and_revive_party()
+		
+	else:
+		input('Good job, you win I guess')
+
 
 
 

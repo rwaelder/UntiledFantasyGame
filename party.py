@@ -99,10 +99,28 @@ class Party:
 	def spend_gold(self, amount):
 		self.gold -= amount
 
+	def buy_item(self, item):
+		self.spend_gold(item.total_value())
+		self.add_item(item)
+		input('Bought %s. %i gold remaining.' % (item.name, self.gold))
+
+	def sell_item(self, item, num):
+		self.inventory[item.name].num -= num
+		gold = item.sell(num)
+		self.add_gold(gold)
+		input('Party earned %i gold' % gold)
+
+		self.update_inventory()
+
+	def update_inventory(self):
+		for item in list(self.inventory.keys()):
+			if self.inventory[item].num == 0:
+				del self.inventory[item]
+
 	def party_items_value(self):
 		value = 0
 		for item in self.inventory.keys():
-			value += self.inventory[item].gold_for_save()
+			value += self.inventory[item].total_value()
 		return value
 
 	def reset_actions(self):
@@ -137,15 +155,14 @@ class Party:
 	def add_item(self, item):
 		input('%s got a(n) %s' % (self.name, item))
 		if item.name in self.inventory:
-			self.inventory[item.name].num += 1
+			self.inventory[item.name].num += item.num
 		else:
 			self.inventory[item.name] = item
 
 	def use_item(self, user, item, target):
 		input('%s used %s!' % (user.name, item.name))
 		item.use(target)
-		if item.num == 0:
-			del self.inventory[item.name]
+		self.update_inventory()
 
 	def has_battle_items(self):
 		for itmName, item in self.inventory.items():

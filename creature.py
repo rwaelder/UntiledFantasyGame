@@ -84,6 +84,7 @@ class Creature:
 
 
 	def restore_mana(self, power):
+		input('%s recovered %i mana!' %(self.name, power))
 		if self.mana + power > self.maxMANA:
 			self.mana = self.maxMANA
 		else:
