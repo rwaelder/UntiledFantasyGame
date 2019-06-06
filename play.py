@@ -10,6 +10,12 @@ from item import *
 import campaigns 
 from shop import Shop
 
+def setup_shop(playerParty):
+	level = playerParty.get_level()
+
+
+
+
 print('\n\n')
 print('--------------------------------------------------------------')
 print('-------------- Welcome to Untitled Fantasy Game --------------')
@@ -22,7 +28,7 @@ input('\n\n')
 
 
 playerParty = new_or_load()
-playerParty.add_item(Spear(5))
+# playerParty.add_item(Spear(5))
 
 # enemies = [OrcShaman(1), Orc(1), Goblin(1)]
 # enemyParty = Party(enemies)

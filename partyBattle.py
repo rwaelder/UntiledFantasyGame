@@ -140,6 +140,8 @@ def battle(playerParty, enemyParty):
 			do_defend(enemy)
 
 		for player in playerParty.get_members():
+			if enemyParty.party_hp() == 0:
+				break
 			if player.action == 'item':
 				do_item_use(player, playerParty, enemyParty)
 			if player.action in ['attack', 'heal']:

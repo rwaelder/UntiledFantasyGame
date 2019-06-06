@@ -52,6 +52,8 @@ class Enemy(Creature):
 	def is_player(self):
 		return False
 
+# ------ Orcs ---------------------------------------------------------
+
 class Orc(Enemy):
 
 	def __init__(self, level):

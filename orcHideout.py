@@ -2,7 +2,7 @@
 from partyBattle import battle
 from enemies import Orc, OrcShaman, OrcPeon, OrcBerserker, OrcLeader
 from item import Potion, Ether, Spear
-from random import choice
+from random import choice, randint
 from party import Party
 from shop import Shop
 
@@ -21,16 +21,65 @@ def game_over():
 	input('Quest failed. Game over.')
 
 
-def play(playerParty):
+def fight_orc_peons(playerParty, numEnemies=2):
+	enemies = []
+	
+	for i in range(numEnemies):
+		level = set_enemy_level(playerParty)
+		enemies.append(OrcPeon(level))
 
-	print('\n\n')
-	print('--------------------------------------------------------------')
-	print('------------------------- Welcome to -------------------------')
-	print('--------------------------------------------------------------')
-	print('--------------------------------------------------------------')
-	print('------------------------- Orc Cavern -------------------------')
-	print('--------------------------------------------------------------')
-	input('\n\n')
+	enemyParty = Party(enemies)
+	won = battle(playerParty, enemyParty)
+
+	return won
+
+def fight_orc_squad(playerParty, numEnemies=3):
+	enemies = []
+	
+
+	for i in range(numEnemies):
+		level = set_enemy_level(playerParty)
+		chance = randint(1, 100)
+		if chance <= 5:
+			enemies.append(OrcLeader(level))
+		elif chance <= 15:
+			enemies.append(OrcShaman(level))
+		elif chance <= 25:
+			enemies.append(OrcBerserker(level))
+		elif chance <= 50:
+			enemies.append(Orc(level))
+		else:
+			enemies.append(OrcPeon(level))
+
+	enemyParty = Party(enemies)
+	won = battle(playerParty, enemyParty)
+
+	return won
+
+def boss_fight(playerParty):
+	enemies = []
+
+	enemies.append(OrcLeader(set_enemy_level(playerParty)+5))
+	enemies.append(OrcShaman(set_enemy_level(playerParty)+2))
+	enemies.append(Orc(set_enemy_level(playerParty)))
+	enemies.append(Orc(set_enemy_level(playerParty)))
+
+	enemyParty = Party(enemies)
+	won = battle(playerParty, enemyParty)
+
+	return won
+
+def play(playerParty, first=True):
+
+	if first:
+		print('\n\n')
+		print('--------------------------------------------------------------')
+		print('--------------------------------------------------------------')
+		print('------------------------- Welcome to -------------------------')
+		print('--------------------------------------------------------------')
+		print('------------------------- Orc Cavern -------------------------')
+		print('--------------------------------------------------------------')
+		input('\n\n')
 
 	input('You find a couple items on the ground because story')
 
@@ -38,25 +87,16 @@ def play(playerParty):
 	playerParty.add_item(Ether(1, 2))
 
 	input('You made too much noise collecting your items, now kill these guards.')
-	enemies = []
-	enemies.append(OrcPeon(set_enemy_level(playerParty)))
-	enemies.append(OrcPeon(set_enemy_level(playerParty)))
-	enemyParty = Party(enemies)
-	won = battle(playerParty, enemyParty)
-
+	
+	won = fight_orc_peons(playerParty)
 	if not won:
 		game_over()
 		return
 
 	input('Oh no, reinforcements!')
 
-	enemies = []
-	enemies.append(OrcPeon(set_enemy_level(playerParty)))
-	enemies.append(OrcPeon(set_enemy_level(playerParty)))
-	enemies.append(Orc(set_enemy_level(playerParty)))
-	enemyParty = Party(enemies)
-	won = battle(playerParty, enemyParty)
-
+	
+	won = fight_orc_squad(playerParty)
 	if not won:
 		game_over()
 		return
@@ -64,10 +104,7 @@ def play(playerParty):
 	input('You WILL lose this fight.')
 
 
-	enemies = []
-	enemies.append(OrcBerserker(50))
-	enemyParty = Party(enemies)
-	won = battle(playerParty, enemyParty)
+	won = boss_fight(playerParty)
 
 	if not won:
 		print()
@@ -79,12 +116,13 @@ def play(playerParty):
 		shopItems.append(Spear(2, 4))
 		shop = Shop(shopItems)
 		shop.use_shop(playerParty)
-		play(playerParty)
+		
 		print('After buying items from his shop, the salesman')
 		print('sets up his camp and allows you to stay the')
 		print('night with him. Refreshed, you head back to the')
 		input('orc hideout the following morning.')
 		playerParty.heal_and_revive_party()
+		play(playerParty, False)
 		
 	else:
 		input('Good job, you win I guess')

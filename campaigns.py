@@ -1,10 +1,11 @@
 # campaigns
 import orcHideout
+import enemyHell
 from misc import isInt
 
 
 def choose_campaign(party):
-	campaigns = ['Orc Hideout']
+	campaigns = ['Orc Hideout', 'Enemy Hell']
 	print()
 	print('------------- Campaigns -------------------------------')
 	for i in range(len(campaigns)):
@@ -20,7 +21,12 @@ def choose_campaign(party):
 
 	if campaign == 'Orc Hideout':
 		orc_hideout(party)
+	if campaign == 'Enemy Hell':
+		enemy_hell(party)
 
 
 def orc_hideout(party):
 	orcHideout.play(party)
+
+def enemy_hell(party):
+	enemyHell.play(party)

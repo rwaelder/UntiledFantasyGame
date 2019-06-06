@@ -9,32 +9,40 @@ class Shop:
 
 
 	def use_shop(self, party):
+		use = '-'
+		while use not in ['', 'Y', 'y', 'N', 'n']:
+			use = input('Use shop? [Y/n]').rstrip()
+
+		if use in ['', 'Y', 'y']:
+			leave = False
+		elif use in ['n', 'N']:
+			leave = True
 		print()
 		print('------------- Welcome to Shoppe\'s shop ---------------')
-		leave = False
 		while leave == False:
 			self.items = self.update_items()
-			buy, leave = self.buy_or_sell()
+			buy, sell, leave = self.buy_sell_leave()
 			if buy:
 				self.buy_items(party)
-			else:
+			elif sell:
 				self.sell_items(party)
 
 
-	def buy_or_sell(self):
-		options = ['buy','sell']
+	def buy_sell_leave(self):
+		options = ['buy','sell', 'leave']
 		action = ''
 		buy = False
+		sell = False
 		leave = False
 		while action not in options:
 			action = input('Buy or sell items or leave? [Buy, Sell, Leave]\n').rstrip().lower()
 		if action == 'buy':
 			buy = True
 		elif action == 'sell':
-			buy = False
+			sell = True
 		elif action == 'leave':
 			leave = True
-		return buy, leave
+		return buy, sell, leave
 
 
 	def buy_items(self, party):

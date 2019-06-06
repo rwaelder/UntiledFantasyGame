@@ -3,6 +3,7 @@ from playerClasses import *
 from party import Party
 from misc import isInt
 import os
+from time import sleep
 
 def save_character(character, saveFile):
 	with open(saveFile, 'a') as f:
@@ -36,6 +37,7 @@ def save_party(party):
 		save_character(member, saveFile)
 
 	add_to_save_list(party.name)
+	sleep(5)
 	print('Progress saved.')
 
 def load_party(partyName):
