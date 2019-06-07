@@ -1,12 +1,12 @@
 Party:Party
-Gold:192
+Gold:165
 Character:
 Name:Dave
 Level:5
 HP:32
 MANA:0
-exp:76
-TotalEXP:450
+exp:188
+TotalEXP:562
 Kind:Berserker
 Attack:Smash,9,85,False,0
 Attack:Slam,16,70,False,0
@@ -15,8 +15,8 @@ Name:Jeff
 Level:5
 HP:27
 MANA:22
-exp:76
-TotalEXP:450
+exp:188
+TotalEXP:562
 Kind:Mage
 Attack:Bash,4,75,False,0
 Attack:Sparks,9,100,True,3
@@ -26,8 +26,8 @@ Name:Chris
 Level:5
 HP:23
 MANA:22
-exp:76
-TotalEXP:450
+exp:188
+TotalEXP:562
 Kind:Sage
 Attack:Bash,4,75,False,0
 Heal:Heal-1,6,95,True,4

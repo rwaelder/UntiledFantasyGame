@@ -28,6 +28,7 @@ class Player(Creature):
 		return True
 
 	def level_up(self):
+		self.isDead = False
 		self.level += 1
 		print('%s has reached level %i!' % (self.name, self.level))
 		self.maxHP += self.levelUpStats['HP']
