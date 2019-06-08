@@ -40,13 +40,13 @@ def fight_orc_squad(playerParty, numEnemies=3):
 	for i in range(numEnemies):
 		level = set_enemy_level(playerParty)
 		chance = randint(1, 100)
-		if chance <= 5:
+		if chance <= 2:
 			enemies.append(OrcLeader(level))
-		elif chance <= 15:
+		elif chance <= 10:
 			enemies.append(OrcShaman(level))
-		elif chance <= 25:
+		elif chance <= 20:
 			enemies.append(OrcBerserker(level))
-		elif chance <= 50:
+		elif chance <= 40:
 			enemies.append(Orc(level))
 		else:
 			enemies.append(OrcPeon(level))
@@ -59,7 +59,7 @@ def fight_orc_squad(playerParty, numEnemies=3):
 def boss_fight(playerParty):
 	enemies = []
 
-	enemies.append(OrcLeader(set_enemy_level(playerParty)+5))
+	enemies.append(OrcLeader(set_enemy_level(playerParty)+3))
 	enemies.append(OrcShaman(set_enemy_level(playerParty)+2))
 	enemies.append(Orc(set_enemy_level(playerParty)))
 	enemies.append(Orc(set_enemy_level(playerParty)))
@@ -105,8 +105,12 @@ def play(playerParty, first=True):
 
 
 	won = boss_fight(playerParty)
+	attempt = 0
 
-	if not won:
+	if won:
+		input('Good job, you win I guess')
+	elif attempt < 2:
+		attempt += 1
 		print()
 		print('Despite getting the whalloping of your lives, you')
 		input('manage to get out of there and meet a traveling salesman.')
@@ -123,9 +127,11 @@ def play(playerParty, first=True):
 		input('orc hideout the following morning.')
 		playerParty.heal_and_revive_party()
 		play(playerParty, False)
-		
 	else:
-		input('Good job, you win I guess')
+		game_over()
+		return
+		
+	
 
 
 
